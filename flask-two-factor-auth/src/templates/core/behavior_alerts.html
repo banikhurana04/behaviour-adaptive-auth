@@ -1,0 +1,20 @@
+{% extends "_base.html" %}
+{% block content %}
+<h2>Behavior Profiles</h2>
+<table border="1" cellpadding="8">
+  <tr>
+    <th>Username</th>
+    <th>Mouse Moves</th>
+    <th>Keystrokes</th>
+    <th>Scrolls</th>
+  </tr>
+  {% for profile in profiles %}
+  <tr>
+    <td>{{ profile.username }}</td>
+    <td>{{ profile.avg_movements }}</td>
+    <td>{{ profile.avg_keystrokes }}</td>
+    <td>{{ profile.avg_scrolls }}</td>
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %}

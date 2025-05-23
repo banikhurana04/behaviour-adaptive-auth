@@ -1,0 +1,33 @@
+{% extends "_base.html" %}
+{% block content %}
+
+<h1 class="text-center">Welcome {{current_user.username}}!</h1>
+
+<script>
+let movements = [];
+let keystrokes = [];
+let scrolls = [];
+
+document.addEventListener('mousemove', e => {
+    movements.push({x: e.clientX, y: e.clientY, t: Date.now()});
+});
+
+document.addEventListener('keydown', e => {
+    keystrokes.push({key: e.key, t: Date.now()});
+});
+
+document.addEventListener('scroll', e => {
+    scrolls.push({scrollY: window.scrollY, t: Date.now()});
+});
+
+// Send data after 10 seconds
+setTimeout(() => {
+    fetch("/behavior-data", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({movements, keystrokes, scrolls})
+    });
+}, 10000);
+</script>
+
+{% endblock %}
