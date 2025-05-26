@@ -14,6 +14,12 @@
         <li class="nav-item">
           <a href="{{ url_for('core.behavior_alerts') }}" class="nav-link px-2 text-light">Behavior Alerts</a>
         </li>
+        <li class="nav-item">
+          <a href="{{ url_for('accounts.login_history') }}" class="nav-link px-2 text-light">Login History</a>
+        </li>
+        <li class="nav-item">
+          <a href="{{ url_for('accounts.suspicious_alerts') }}" class="nav-link px-2 text-light">Suspicious Logins</a>
+        </li>
         {% endif %}
       </ul>
       {% if current_user.is_authenticated %}

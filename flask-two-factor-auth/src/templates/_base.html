@@ -15,7 +15,9 @@
   </head>
   <body>
 
-    {% include "navigation.html" %}
+    {% if current_user.is_authenticated and session.get("otp_verified") %}
+      {% include "navigation.html" %}
+    {% endif %}
 
     <div class="container">
 

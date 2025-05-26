@@ -1,0 +1,26 @@
+{% extends "_base.html" %}
+{% block content %}
+<h2>Suspicious Login Alerts</h2>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>IP</th>
+      <th>Device</th>
+      <th>Location</th>
+      <th>Time</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for a in alerts %}
+    <tr>
+      <td>{{ a.username }}</td>
+      <td>{{ a.ip_address }}</td>
+      <td>{{ a.user_agent }}</td>
+      <td>{{ a.location or "Unknown" }}</td>
+      <td>{{ a.timestamp }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

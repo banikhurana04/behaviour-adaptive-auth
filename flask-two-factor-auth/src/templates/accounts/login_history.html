@@ -1,0 +1,34 @@
+{% extends "_base.html" %}
+{% block content %}
+<h2>Login History</h2>
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Time</th>
+      <th>IP Address</th>
+      <th>Location</th>
+      <th>Device</th>
+      <th>Suspicious?</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for entry in history %}
+    <tr>
+      <td>{{ entry.timestamp }}</td>
+      <td>{{ entry.ip_address }}</td>
+      <td>{{ entry.location or "Unknown" }}</td>
+      <td>
+        <span title="{{ entry.user_agent }}">{{ entry.user_agent|truncate(50, True, '...') }}</span>
+      </td>
+      <td>
+        {% if entry.is_suspicious %}
+          <span class="text-danger fw-bold">⚠️ Yes</span>
+        {% else %}
+          <span class="text-success">No</span>
+        {% endif %}
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
