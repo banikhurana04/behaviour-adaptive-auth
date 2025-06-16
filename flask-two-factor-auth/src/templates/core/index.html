@@ -4,29 +4,27 @@
 <h1 class="text-center">Welcome {{current_user.username}}!</h1>
 
 <script>
-let movements = [];
-let keystrokes = [];
-let scrolls = [];
+let movements = 0;
+let keystrokes = 0;
+let scrolls = 0;
 
-document.addEventListener('mousemove', e => {
-    movements.push({x: e.clientX, y: e.clientY, t: Date.now()});
-});
+document.addEventListener('mousemove', () => { movements++; });
+document.addEventListener('keydown', () => { keystrokes++; });
+document.addEventListener('scroll', () => { scrolls++; });
 
-document.addEventListener('keydown', e => {
-    keystrokes.push({key: e.key, t: Date.now()});
-});
-
-document.addEventListener('scroll', e => {
-    scrolls.push({scrollY: window.scrollY, t: Date.now()});
-});
-
-// Send data after 10 seconds
 setTimeout(() => {
     fetch("/behavior-data", {
         method: "POST",
         headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({movements, keystrokes, scrolls})
-    });
+        body: JSON.stringify({
+            movements: movements,
+            keystrokes: keystrokes,
+            scrolls: scrolls
+        })
+    })
+    .then(response => response.json())
+    .then(data => console.log("Behavior data sent:", data))
+    .catch(err => console.error("Error sending behavior data:", err));
 }, 10000);
 </script>
 

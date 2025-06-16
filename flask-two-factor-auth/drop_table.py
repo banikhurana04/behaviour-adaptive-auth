@@ -1,13 +1,8 @@
-import sqlite3
+from src import create_app
+from src.db import db
 
-conn = sqlite3.connect('app.db')  # Connect to your SQLite DB file
-cursor = conn.cursor()
+app = create_app()
 
-try:
-    cursor.execute('DROP TABLE IF EXISTS alembic_version;')
-    print("Table 'alembic_version' dropped successfully.")
-except Exception as e:
-    print("Error:", e)
-
-conn.commit()
-conn.close()
+with app.app_context():
+    db.drop_all()
+    print("All tables dropped successfully!")

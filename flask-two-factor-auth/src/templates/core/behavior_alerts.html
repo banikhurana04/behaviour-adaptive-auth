@@ -10,10 +10,14 @@
   </tr>
   {% for profile in profiles %}
   <tr>
-    <td>{{ profile.username }}</td>
+    <td>{{ profile.user.username }}</td>
     <td>{{ profile.avg_movements }}</td>
     <td>{{ profile.avg_keystrokes }}</td>
     <td>{{ profile.avg_scrolls }}</td>
+  </tr>
+  {% else %}
+  <tr>
+    <td colspan="4">No behavior profiles found.</td>
   </tr>
   {% endfor %}
 </table>

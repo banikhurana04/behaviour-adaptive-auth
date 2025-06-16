@@ -1,0 +1,42 @@
+{% extends "_base.html" %}
+{% block content %}
+<h2>Password Vault</h2>
+
+<form method="POST">
+  {{ form.hidden_tag() }}
+  {{ form.app_name.label }} {{ form.app_name(class="form-control") }}<br>
+  {{ form.app_username.label }} {{ form.app_username(class="form-control") }}<br>
+  {{ form.app_password.label }} {{ form.app_password(class="form-control") }}<br>
+  <button type="submit" class="btn btn-primary">Save</button>
+</form>
+
+<hr>
+
+<h4>Your Stored Passwords:</h4>
+<a href="{{ url_for('vault.reveal_passwords') }}" class="btn btn-secondary">Reveal Passwords</a>
+<br><br>
+<table class="table">
+  <thead>
+    <tr>
+      <th>App</th>
+      <th>Username</th>
+      <th>Password</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for entry in entries %}
+    <tr>
+      <td>{{ entry.app_name }}</td>
+      <td>{{ entry.app_username }}</td>
+      <td>
+        {% if show_passwords %}
+          {{ entry.app_password }}
+        {% else %}
+          ********
+        {% endif %}
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
