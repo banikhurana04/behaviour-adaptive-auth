@@ -14,9 +14,6 @@ env/
 instance/
 migrations/
 
-# Ignore local-only scripts
-create_db.py
-drop_table.py
 
 # Ignore database and logs
 *.sqlite3
