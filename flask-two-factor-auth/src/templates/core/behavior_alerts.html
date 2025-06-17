@@ -1,24 +1,28 @@
 {% extends "_base.html" %}
 {% block content %}
-<h2>Behavior Profiles</h2>
-<table border="1" cellpadding="8">
-  <tr>
-    <th>Username</th>
-    <th>Mouse Moves</th>
-    <th>Keystrokes</th>
-    <th>Scrolls</th>
-  </tr>
-  {% for profile in profiles %}
-  <tr>
-    <td>{{ profile.user.username }}</td>
-    <td>{{ profile.avg_movements }}</td>
-    <td>{{ profile.avg_keystrokes }}</td>
-    <td>{{ profile.avg_scrolls }}</td>
-  </tr>
-  {% else %}
-  <tr>
-    <td colspan="4">No behavior profiles found.</td>
-  </tr>
-  {% endfor %}
+<h2 class="mb-3">Behavior Profiles</h2>
+<table class="table table-bordered table-striped">
+  <thead class="table-dark">
+    <tr>
+      <th>Username</th>
+      <th>Mouse Moves</th>
+      <th>Keystrokes</th>
+      <th>Scrolls</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for profile in profiles %}
+    <tr>
+      <td>{{ profile.user.username }}</td>
+      <td>{{ profile.avg_movements }}</td>
+      <td>{{ profile.avg_keystrokes }}</td>
+      <td>{{ profile.avg_scrolls }}</td>
+    </tr>
+    {% else %}
+    <tr>
+      <td colspan="4" class="text-center">No behavior profiles found.</td>
+    </tr>
+    {% endfor %}
+  </tbody>
 </table>
 {% endblock %}

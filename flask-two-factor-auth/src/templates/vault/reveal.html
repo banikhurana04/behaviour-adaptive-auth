@@ -1,22 +1,21 @@
 {% extends "_base.html" %}
 {% block content %}
-<h2>Confirm Your Identity</h2>
+<h2 class="mb-3">Confirm Your Identity</h2>
 
 <form method="POST">
   {{ form.hidden_tag() }}
-  <div class="form-group">
-    {{ form.password.label }}<br>
+  <div class="mb-3">
+    {{ form.password.label(class="form-label") }}
     {{ form.password(class="form-control", placeholder="Enter your login password") }}
   </div>
-  <br>
   <button type="submit" class="btn btn-danger">Reveal Passwords</button>
 </form>
 
 {% if entries %}
 <hr>
 <h4>Your Decrypted Passwords:</h4>
-<table class="table">
-  <thead>
+<table class="table table-bordered">
+  <thead class="table-dark">
     <tr>
       <th>App</th>
       <th>Username</th>

@@ -1,9 +1,29 @@
-.error {
-  color: red;
-  margin-bottom: 5px;
-  text-align: center;
+body {
+  background-color: #f8f9fa;
 }
 
-a {
-  text-decoration: none;
+.app-title {
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #343a40;
+}
+
+.form-wrapper {
+  max-width: 500px;
+  margin: 0 auto;
+  background: #ffffff;
+  padding: 30px;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.05);
+}
+
+.table th,
+.table td {
+  vertical-align: middle;
+}
+
+.alert-container {
+  margin-bottom: 20px;
 }

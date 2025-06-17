@@ -1,64 +1,39 @@
 {% extends "_base.html" %}
-
 {% block content %}
-<div class="row justify-content-center">
-  <div class="col-md-4">
-    <main class="form-signin w-100 m-auto">
-      <form role="form" method="post" action="">
-        {{ form.csrf_token }}
-        
-        {% with messages = get_flashed_messages(with_categories=true) %}
-          {% if messages %}
-            {% for category, message in messages %}
-              <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
-                {{ message }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-              </div>
-            {% endfor %}
-          {% endif %}
-        {% endwith %}
-
-        <h1 class="h3 mb-3 fw-normal text-center">Please register</h1>
-
-        <div class="form-floating mb-2">
-          {{ form.username(class="form-control", placeholder="Username") }}
-          {{ form.username.label }}
-          {% for error in form.username.errors %}
-            <div class="alert alert-danger mt-1">{{ error }}</div>
-          {% endfor %}
-        </div>
-
-        <div class="form-floating mb-2">
-          {{ form.email(class="form-control", placeholder="Email") }}
-          {{ form.email.label }}
-          {% for error in form.email.errors %}
-            <div class="alert alert-danger mt-1">{{ error }}</div>
-          {% endfor %}
-        </div>
-
-        <div class="form-floating mb-2">
-          {{ form.password(class="form-control", placeholder="Password") }}
-          {{ form.password.label }}
-          {% for error in form.password.errors %}
-            <div class="alert alert-danger mt-1">{{ error }}</div>
-          {% endfor %}
-        </div>
-
-        <div class="form-floating mb-3">
-          {{ form.confirm(class="form-control", placeholder="Repeat password") }}
-          {{ form.confirm.label }}
-          {% for error in form.confirm.errors %}
-            <div class="alert alert-danger mt-1">{{ error }}</div>
-          {% endfor %}
-        </div>
-
-        <button class="w-100 btn btn-lg btn-primary" type="submit">Sign up</button>
-
-        <p class="text-center mt-3">
-          Already registered? <a href="{{ url_for('accounts.login') }}">Login now</a>
-        </p>
-      </form>
-    </main>
-  </div>
+<div class="form-wrapper">
+  <h2 class="text-center mb-4">Register</h2>
+  <form method="POST">
+    {{ form.csrf_token }}
+    <div class="mb-3">
+      {{ form.username.label(class="form-label") }}
+      {{ form.username(class="form-control", placeholder="Username") }}
+      {% for error in form.username.errors %}
+        <div class="text-danger">{{ error }}</div>
+      {% endfor %}
+    </div>
+    <div class="mb-3">
+      {{ form.email.label(class="form-label") }}
+      {{ form.email(class="form-control", placeholder="Email") }}
+      {% for error in form.email.errors %}
+        <div class="text-danger">{{ error }}</div>
+      {% endfor %}
+    </div>
+    <div class="mb-3">
+      {{ form.password.label(class="form-label") }}
+      {{ form.password(class="form-control", placeholder="Password") }}
+      {% for error in form.password.errors %}
+        <div class="text-danger">{{ error }}</div>
+      {% endfor %}
+    </div>
+    <div class="mb-3">
+      {{ form.confirm.label(class="form-label") }}
+      {{ form.confirm(class="form-control", placeholder="Confirm Password") }}
+      {% for error in form.confirm.errors %}
+        <div class="text-danger">{{ error }}</div>
+      {% endfor %}
+    </div>
+    <button type="submit" class="btn btn-primary w-100">Sign up</button>
+    <p class="text-center mt-3">Already registered? <a href="{{ url_for('accounts.login') }}">Login</a></p>
+  </form>
 </div>
 {% endblock %}

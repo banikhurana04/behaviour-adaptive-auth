@@ -1,22 +1,29 @@
 {% extends "_base.html" %}
 {% block content %}
-<h2>Password Vault</h2>
+<h2 class="mb-3">Password Vault</h2>
 
-<form method="POST">
+<form method="POST" class="mb-4">
   {{ form.hidden_tag() }}
-  {{ form.app_name.label }} {{ form.app_name(class="form-control") }}<br>
-  {{ form.app_username.label }} {{ form.app_username(class="form-control") }}<br>
-  {{ form.app_password.label }} {{ form.app_password(class="form-control") }}<br>
+  <div class="mb-3">
+    {{ form.app_name.label(class="form-label") }}
+    {{ form.app_name(class="form-control") }}
+  </div>
+  <div class="mb-3">
+    {{ form.app_username.label(class="form-label") }}
+    {{ form.app_username(class="form-control") }}
+  </div>
+  <div class="mb-3">
+    {{ form.app_password.label(class="form-label") }}
+    {{ form.app_password(class="form-control") }}
+  </div>
   <button type="submit" class="btn btn-primary">Save</button>
 </form>
 
-<hr>
-
 <h4>Your Stored Passwords:</h4>
-<a href="{{ url_for('vault.reveal_passwords') }}" class="btn btn-secondary">Reveal Passwords</a>
-<br><br>
-<table class="table">
-  <thead>
+<a href="{{ url_for('vault.reveal_passwords') }}" class="btn btn-secondary mb-3">Reveal Passwords</a>
+
+<table class="table table-striped table-bordered">
+  <thead class="table-dark">
     <tr>
       <th>App</th>
       <th>Username</th>

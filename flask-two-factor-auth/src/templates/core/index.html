@@ -1,7 +1,6 @@
 {% extends "_base.html" %}
 {% block content %}
-
-<h1 class="text-center">Welcome {{current_user.username}}!</h1>
+<h2 class="text-center">Welcome, {{ current_user.username }}!</h2>
 
 <script>
 let movements = 0;
@@ -16,16 +15,11 @@ setTimeout(() => {
     fetch("/behavior-data", {
         method: "POST",
         headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({
-            movements: movements,
-            keystrokes: keystrokes,
-            scrolls: scrolls
-        })
+        body: JSON.stringify({ movements, keystrokes, scrolls })
     })
-    .then(response => response.json())
+    .then(res => res.json())
     .then(data => console.log("Behavior data sent:", data))
     .catch(err => console.error("Error sending behavior data:", err));
 }, 10000);
 </script>
-
 {% endblock %}
