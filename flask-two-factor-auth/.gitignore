@@ -11,6 +11,10 @@ env/
 .env
 .env.*
 
+create_db.py 
+drop_table.py 
+db.py 
+
 # Ignore Flask-specific instance and migration folders
 instance/
 migrations/
