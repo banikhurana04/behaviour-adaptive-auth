@@ -28,7 +28,6 @@ def create_app():
     login_manager.login_view = "accounts.login"
     login_manager.login_message_category = "danger"
 
-    # Enable foreign key constraints for SQLite
     @event.listens_for(Engine, "connect")
     def set_sqlite_pragma(dbapi_connection, connection_record):
         if isinstance(dbapi_connection, sqlite3.Connection):

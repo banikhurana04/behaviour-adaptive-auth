@@ -1,6 +1,5 @@
 from decouple import config
 
-# Fix Heroku-style DATABASE_URL for SQLAlchemy compatibility
 DATABASE_URI = config("DATABASE_URL")
 if DATABASE_URI.startswith("postgres://"):
     DATABASE_URI = DATABASE_URI.replace("postgres://", "postgresql://", 1)
@@ -11,7 +10,7 @@ class Config(object):
     CSRF_ENABLED = True
     
     SECRET_KEY = config("SECRET_KEY")  
-    ENCRYPTION_KEY = config("ENCRYPTION_KEY")  # ✅ This already correctly added
+    ENCRYPTION_KEY = config("ENCRYPTION_KEY")  
     SQLALCHEMY_DATABASE_URI = DATABASE_URI
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     

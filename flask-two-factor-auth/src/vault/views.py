@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, request, redirect, url_for, flash,
 from flask_login import login_required, current_user
 from src import bcrypt
 from src.db import db
-from .utils import encrypt_password, decrypt_password  # ✅ Correct: vault.utils
+from .utils import encrypt_password, decrypt_password  
 from .forms import VaultForm, RevealPasswordForm
 from .models import VaultEntry
 from src.accounts.models import User
@@ -15,12 +15,11 @@ vault_bp = Blueprint("vault", __name__, template_folder="../templates")
 def password_vault():
     form = VaultForm()
 
-    # ⏰ Reveal timeout check
     show_passwords = False
     reveal_time = session.get('reveal_time')
 
     if reveal_time:
-        expire_time = datetime.fromtimestamp(reveal_time) + timedelta(minutes=2)  # timeout: 2 minutes
+        expire_time = datetime.fromtimestamp(reveal_time) + timedelta(minutes=2) 
         if datetime.utcnow() < expire_time:
             show_passwords = True
         else:
@@ -28,7 +27,7 @@ def password_vault():
             session.pop('reveal_time', None)
 
     if form.validate_on_submit():
-        # 🔐 Encrypt password before storing
+        
         encrypted_password = encrypt_password(form.app_password.data)
         new_entry = VaultEntry(
             user_id=current_user.id,
@@ -41,7 +40,6 @@ def password_vault():
         flash("Password saved successfully!", "success")
         return redirect(url_for('vault.password_vault'))
 
-    # 🔐 Decrypt passwords for display (if allowed)
     entries = VaultEntry.query.filter_by(user_id=current_user.id).all()
     decrypted_entries = []
     if show_passwords:
@@ -74,7 +72,7 @@ def reveal_passwords():
         user = User.query.get(current_user.id)
         if user and bcrypt.check_password_hash(user.password, password):
             session['show_passwords'] = True
-            session['reveal_time'] = datetime.utcnow().timestamp()  # ⏰ Set timeout
+            session['reveal_time'] = datetime.utcnow().timestamp()  
             flash("Passwords revealed for 2 minutes.", "success")
             return redirect(url_for('vault.password_vault'))
         else:

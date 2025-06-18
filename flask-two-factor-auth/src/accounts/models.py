@@ -4,10 +4,6 @@ from flask_login import UserMixin
 from src import bcrypt, db
 from config import Config
 
-# ====================================
-# User Model
-# ====================================
-
 class User(UserMixin, db.Model):
     __tablename__ = "users"
 
@@ -20,7 +16,6 @@ class User(UserMixin, db.Model):
     is_two_factor_authentication_enabled = db.Column(db.Boolean, default=False, nullable=False)
     secret_token = db.Column(db.String(32), unique=True)
 
-    # Relationships
     password_entries = db.relationship("VaultEntry", backref="user", lazy=True, cascade="all, delete-orphan")
     behavior_profile = db.relationship("BehaviorProfile", uselist=False, backref="user", lazy=True, cascade="all, delete-orphan")
     login_history = db.relationship('LoginHistory', back_populates='user', lazy=True, cascade="all, delete-orphan", passive_deletes=True)
@@ -47,10 +42,6 @@ class User(UserMixin, db.Model):
         return f"<User {self.username}>"
 
 
-# ====================================
-# Behavior Profile Model
-# ====================================
-
 class BehaviorProfile(db.Model):
     __tablename__ = "behavior_profiles"
 
@@ -63,10 +54,6 @@ class BehaviorProfile(db.Model):
     def __repr__(self):
         return f"<BehaviorProfile for user_id {self.user_id}>"
 
-
-# ====================================
-# Login History Model
-# ====================================
 
 class LoginHistory(db.Model):
     __tablename__ = "login_history"
@@ -85,5 +72,4 @@ class LoginHistory(db.Model):
         return f"<LoginHistory {self.timestamp} for user_id {self.user_id}>"
 
 
-# ✅ Don't forget to import VaultEntry as before:
 from src.vault.models import VaultEntry
